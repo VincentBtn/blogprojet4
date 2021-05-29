@@ -1,12 +1,11 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-<h1>Mon super blog !</h1>
-<p>Derniers billets du blog :</p>
+<h1>Mes articles</h1>
+
 
 
 <?php
-
 foreach ($posts as $data)
 {
 ?>
@@ -19,14 +18,13 @@ foreach ($posts as $data)
         <p>
             <?= nl2br(htmlspecialchars($data['content'])) ?>
             <br />
-            <em><a href="index.php?action=post&amp;id=<?= $data['id'] ?>">Commentaires</a></em>
+            
         </p>
     </div>
 <?php
 }
 
 ?>
-
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>
