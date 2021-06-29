@@ -5,18 +5,28 @@ require_once 'Manager.php';
 
 class PostManager extends Manager {
 
+    public const SIZE = 2;
 
-
-    public function list()
+    public function list($offset = 0)
     {  
       
-        $req = $this->db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC LIMIT 0, 5');
+        $req = $this->db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC LIMIT '.$offset.', '.self::SIZE.'');
         $posts = $req->fetchAll();
         $req->closeCursor();
 
         return $posts;
     }
     
+    public function count()
+    {
+        $req = $this->db->query('SELECT COUNT(*) FROM posts');
+        $count = $req->fetchColumn();
+        $req->closeCursor();
+        
+        return $count;
+
+    }
+
     public function get($id)
     {
         $req = $this->db->prepare('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts WHERE id = ?');
@@ -41,7 +51,7 @@ class PostManager extends Manager {
 
     public function update($title, $content, $id) {
         
-        $req =  $this->db->prepare('UPDATE posts SET title = ?, content = ?');
+        $req =  $this->db->prepare('UPDATE posts SET title = ?, content = ? WHERE id = ?');
         $updated = $req->execute([$title, $content, $id]);
         
         return $updated;

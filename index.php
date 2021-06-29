@@ -29,7 +29,11 @@ if (isset($_GET['action'])) {
 
     switch ($_GET['action']) {
         case 'listPosts':
-            listPosts();
+            $page = 1;
+            if (isset($_GET['page']) && $_GET['page'] > 0) {
+                $page = $_GET['page'];
+            }
+            listPosts($page);
             break;
         case 'post':
             if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -60,9 +64,42 @@ if (isset($_GET['action'])) {
                 }
             }
             break;
+        case 'adminUpdatePost':
+            checkAdmin();
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                adminPost($_GET['id']);
+               
+            }
+            else {
+                echo 'Erreur : aucun identifiant de billet envoyé';
+            }
+           
+            if (empty($_POST) === false) {
+                if(isset($_POST['title'], $_POST['content'])) {
+                    updatePost($_POST['title'], $_POST['content'], $_GET['id']);
+                }
+            }
+            break;
+
         case 'adminListPosts':
             checkAdmin();
             adminListPosts();
+            break;
+        case 'adminListComments':
+            checkAdmin();
+            getReportedComments();
+            break;
+        case 'adminDeleteComment':
+            checkAdmin();
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                deleteCommentAction($_GET['id']);
+            }
+            break;
+        case 'adminDeletePost':
+            checkAdmin();
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                deletePostAction($_GET['id']);
+            }
             break;
         case 'reportComment':
             checkConnected();
@@ -90,9 +127,9 @@ if (isset($_GET['action'])) {
         case 'logout':
             logout();
             break;
-        /* default:
+        default:
             listPosts();
-            break; */
+            break; 
     }    
 } else {
     listPosts();

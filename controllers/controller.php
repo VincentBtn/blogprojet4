@@ -5,13 +5,18 @@ require_once './models/PostManager.php';
 require_once './models/CommentManager.php';
 require_once './models/UserManager.php';
 
-function listPosts()
+function listPosts($page = 1)
 {
     $postManager = new PostManager();
-    $posts = $postManager->list();
+    $total = $postManager->count();
+    $pages = ceil($total/PostManager::SIZE);
+    $offset = ($page * PostManager::SIZE) - PostManager::SIZE;
+    $posts = $postManager->list($offset);
 
     require('./views/listPostView.php');
 }
+
+
 
 function post(string $id)
 {
@@ -28,12 +33,34 @@ function post(string $id)
 }
 
 
+function adminPost(string $id)
+{
+    $postManager = new PostManager();
+    $post = $postManager->get($id);
+    if ($post === null) {
+        throw new Exception('Article inexistant');
+    }
+
+    require('views/updatePostView.php');
+}
+
+
 function adminListPosts()
 {
     $postManager = new PostManager();
     $posts = $postManager->list();
 
     require('./views/adminListPostView.php');
+}
+
+function getReportedComments() 
+{
+    $commentManager = new CommentManager();
+
+    $comments = $commentManager->getReported();
+
+    require('./views/adminListCommentsView.php');
+
 }
 
 function register($user) 
@@ -95,21 +122,11 @@ function updatePost($title, $content, $id) {
 
     $updated = $postManager->update($title, $content, $id);
 
-    header('Location: index.php');
+    header('Location: index.php?action=adminListPosts');
 
 }
 
 
-
-function removePost($id) {
-	
-    $postManager = new PostManager();
-
-	$deletedPost = $postManager->delete($id);
-
-	header('Location: index.php');
-
-}
 
 function addComment($postId, $author, $comment) {
     
@@ -133,6 +150,27 @@ function reportComment($id, $postId) {
 
     header('Location: index.php?action=post&id=' . $postId );
     
+
+}
+
+function deleteCommentAction($id) {
+
+    $commentManager = new CommentManager();
+
+    $deletedComment = $commentManager->deleteComment($id);
+
+    
+
+
+}
+
+function deletePostAction($id) {
+    
+    $postManager = new PostManager();
+
+    $deletedPost = $postManager->delete($id);
+
+    header('Location: index.php?action=adminListPosts');
 
 }
 

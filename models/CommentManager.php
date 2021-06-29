@@ -25,11 +25,11 @@ class CommentManager extends Manager {
         return $affectedLines;
     }
 
-    public function deleteComment($commentId) 
+    public function deleteComment($id) 
     {
 
         $req =  $this->db->prepare('DELETE FROM comments WHERE id = ?');
-        $deletedComment = $req->execute([$commentId]);
+        $deletedComment = $req->execute([$id]);
 
         return $deletedComment;
     }
@@ -41,6 +41,18 @@ class CommentManager extends Manager {
         $alertedComment = $req->execute([$id]);
     
         return $alertedComment;
+    }
+
+    public function getReported()
+    {
+        
+        $req = $this->db->query('SELECT id, post_id, author, comment, report, DATE_FORMAT(comment_date, \'le %d/%m/%Y à %Hh%i\') AS comment_date_fr FROM comments WHERE report = 1');
+        $req->execute();
+        $comments = $req->fetchAll();
+        $req->closeCursor();
+        
+        return $comments;
+       
     }
 
 }
