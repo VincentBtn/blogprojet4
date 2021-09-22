@@ -1,11 +1,11 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-<h1>Mon super blog !</h1>
-<p>Derniers billets du blog :</p>
+<h1 style="text-align: center;">Blog de Jean-Forteroche</h1>
+<p style="text-align: center;">Derniers billets du blog :</p>
 
 
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
   <ul class="pagination">
     <li class="page-item <?= $page <= 1 ? 'disabled' : ''?>">
       <a class="page-link" href="index.php?action=listPosts&amp;page=<?= $page - 1 ?>" aria-label="Previous">
@@ -34,17 +34,19 @@
 foreach ($posts as $data)
 {
 ?>
-    <div class="news">
-        <h3>
+    <div class="card" style="width: 18rem; text-align: center; margin: 0 auto;">
+      <div class="card-body">
+        <h3 class="card-title">
             <?= htmlspecialchars($data['title']) ?>
             <em>le <?= $data['creation_date_fr'] ?></em>
         </h3>
         
-        <p>
+        <p class="card-text">
             <?= ($data['content']) ?>
             <br />
             <em><a href="index.php?action=post&amp;id=<?= $data['id'] ?>">Commentaires</a></em>
         </p>
+      </div>
     </div>
 <?php
 }

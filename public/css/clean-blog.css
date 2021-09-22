@@ -7,7 +7,11 @@
 body {
   font-size: 20px;
   color: #212529;
-  font-family: 'Lora', 'Times New Roman', serif;
+  font-family: 'Scheherazade New', serif;
+}
+
+main {
+  padding: 0 1rem;
 }
 
 p {
@@ -19,6 +23,10 @@ p a {
   text-decoration: underline;
 }
 
+h1 {
+  text-align: center;
+}
+
 h1,
 h2,
 h3,
@@ -26,12 +34,17 @@ h4,
 h5,
 h6 {
   font-weight: 800;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Scheherazade New', serif;
 }
+
+
+
 
 a {
   color: #212529;
   transition: all 0.2s;
+  text-align: center;
+  margin : 0 auto;
 }
 
 a:focus, a:hover {
@@ -91,7 +104,7 @@ img::-moz-selection {
   position: absolute;
   border-bottom: 1px solid #e9ecef;
   background-color: white;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Scheherazade New', serif;
 }
 
 #mainNav .navbar-brand {
@@ -113,6 +126,20 @@ img::-moz-selection {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+
+.user-form {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.adminPanel {
+  text-align: center;
+}
+ /* .card {
+  width: 18rem;
+  text-align: center;
+  margin: 0 auto;
+}*/
 
 @media only screen and (min-width: 992px) {
   #mainNav {
@@ -310,6 +337,8 @@ header.masthead .post-heading .meta a {
     font-size: 36px;
   }
 }
+
+
 
 .floating-label-form-group {
   font-size: 14px;

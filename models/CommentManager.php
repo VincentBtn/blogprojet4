@@ -43,6 +43,13 @@ class CommentManager extends Manager {
         return $alertedComment;
     }
 
+    public function valid($id) {
+
+        $req = $this->db->prepare('UPDATE comments SET report = 0 WHERE id = ?');
+        $req->execute([$id]);
+        $req->closeCursor();
+    }
+
     public function getReported()
     {
         

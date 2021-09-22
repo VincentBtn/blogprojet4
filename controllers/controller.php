@@ -77,6 +77,7 @@ function login($params)
 {
     $userManager = new UserManager();
     $user = $userManager->getByPseudo($params['pseudo']);
+    $error = null;
     if ($user) {
         if (password_verify($params['password'], $user['password'])) {
             var_dump('Mot de passe valide !');
@@ -90,13 +91,15 @@ function login($params)
         
         
         } else {
-            var_dump('Mot de passe invalide');
+            $error = 'Mot de passe invalide';
         }
     
         
     } else {
-        var_dump('Utilisateur inexistant');
+        $error = 'Utilisateur inexistant';
     }
+
+    require('./views/loginView.php');
 
 }
 
@@ -150,6 +153,17 @@ function reportComment($id, $postId) {
 
     header('Location: index.php?action=post&id=' . $postId );
     
+
+}
+
+function validComment($id) {
+
+    $commentManager = new CommentManager();
+
+    $commentManager->valid($id);
+
+    header('Location: index.php?action=adminListComments&id=' . $id );
+
 
 }
 

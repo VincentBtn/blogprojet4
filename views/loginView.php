@@ -5,8 +5,19 @@
 
 <h1>Connexion</h1>
 <br />
+<?php
+if (isset($error) && $error !== null) {
 
-<form action="" method="POST">
+?>
+<div class="alert alert-danger" role="alert">
+    <?= $error ?>
+</div>
+<?php
+}
+?>
+
+
+<form action="" method="POST" class="user-form">
 
     <div class="form-group">
         <label for="">Pseudo :</label>

@@ -107,6 +107,12 @@ if (isset($_GET['action'])) {
                 reportComment($_GET['id'], $_GET['post_id']);
             }
             break;
+        case 'validComment':
+            checkAdmin();
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                validComment($_GET['id']);
+            }
+            break;
         case 'register':
             require('views/registerView.php');
             if (empty($_POST) === false) {
@@ -117,11 +123,13 @@ if (isset($_GET['action'])) {
             }
             break;
         case 'login':
-            require('views/loginView.php');
+            
             if (empty($_POST) === false) {
                 if(isset($_POST['pseudo'], $_POST['password'])) { 
                     login($_POST);
                 }
+            } else { 
+                require('views/loginView.php');
             }
             break;
         case 'logout':

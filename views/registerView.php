@@ -6,7 +6,7 @@
 <h1>Inscription</h1>
 <br />
 
-<form action="index.php?action=register" method="POST">
+<form action="index.php?action=register" method="POST" class="user-form">
 
     <div class="form-group">
         <label for="">Pseudo :</label>

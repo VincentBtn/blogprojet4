@@ -28,10 +28,10 @@
             <?= htmlspecialchars($data['comment']) ?>
         </td>
         <td>
-        <button type="button" class="btn btn-danger delete-comment" data-id="<?= $data['id'] ?>" data-bs-toggle="modal" data-bs-target="#modal">
-            Supprimer
-          </button>
-            <a class='btn btn-success'>Valider</a>
+            <button type="button" class="btn btn-danger delete-comment" data-id="<?= $data['id'] ?>" data-bs-toggle="modal" data-bs-target="#modal">
+                Supprimer
+            </button>
+            <a class='btn btn-success' href="index.php?action=validComment&id=<?= $data['id'] ?>">Valider</a>
             
         </td>
     </tr>
