@@ -1,6 +1,6 @@
 <?php
 
-// require('./models/model.php');
+
 require_once './models/PostManager.php';
 require_once './models/CommentManager.php';
 require_once './models/UserManager.php';
