@@ -17,16 +17,16 @@ if (isset($error) && $error !== null) {
 ?>
 
 
-<form action="" method="POST" class="user-form">
+<form method="POST" class="user-form">
 
     <div class="form-group">
-        <label for="">Pseudo :</label>
-        <input type="text" required name="pseudo" class="form-control">
+        <label for="pseudo">Pseudo :</label>
+        <input id="pseudo" type="text" required name="pseudo" class="form-control">
     </div>
 
     <div class="form-group">
-        <label for="">Mot de passe :</label>
-        <input type="password" required name="password" class="form-control">
+        <label for="password">Mot de passe :</label>
+        <input id="password" type="password" required name="password" class="form-control">
     </div>
 
     <button type="submit" class="btn btn-primary">Me connecter</button>

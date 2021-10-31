@@ -62,4 +62,11 @@ class CommentManager extends Manager {
        
     }
 
+    public function deleteRelated($postId) {
+
+        $req =  $this->db->prepare('DELETE FROM comments WHERE post_id = ?');
+        $req->execute([$postId]);
+        $req->closeCursor();
+    }
+
 }

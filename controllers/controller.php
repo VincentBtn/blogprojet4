@@ -11,7 +11,7 @@ function listPosts($page = 1)
     $total = $postManager->count();
     $pages = ceil($total/PostManager::SIZE);
     $offset = ($page * PostManager::SIZE) - PostManager::SIZE;
-    $posts = $postManager->list($offset);
+    $posts = $postManager->list(true, $offset);
 
     require('./views/listPostView.php');
 }
@@ -48,7 +48,7 @@ function adminPost(string $id)
 function adminListPosts()
 {
     $postManager = new PostManager();
-    $posts = $postManager->list();
+    $posts = $postManager->list(false);
 
     require('./views/adminListPostView.php');
 }
@@ -141,7 +141,7 @@ function addComment($postId, $author, $comment) {
         throw new Exception("Impossible d'ajouter le commentaire !");
     }
     
-    header('Location: index.php?action=post&id=' . $postId . '#commentsFrame');
+    
     
 }
 
@@ -180,9 +180,11 @@ function deleteCommentAction($id) {
 
 function deletePostAction($id) {
     
-    $postManager = new PostManager();
 
+    $postManager = new PostManager();
+    $commentManager = new CommentManager();
     $deletedPost = $postManager->delete($id);
+    $commentManager->deleteRelated($id);
 
     header('Location: index.php?action=adminListPosts');
 

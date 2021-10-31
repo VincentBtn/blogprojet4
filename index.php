@@ -29,10 +29,11 @@ if (isset($_GET['action'])) {
             break;
         case 'postComment':
             checkConnected();
-            if (!empty($_POST) && isset($_POST['comment'], $_GET['id'])) {
+            if (!empty($_POST) && isset($_POST['comment'], $_GET['id']) && strlen($_POST['comment']) > 0) {
                 addComment($_GET['id'], $_SESSION['pseudo'], $_POST['comment']);
                 
             }
+            header('Location: index.php?action=post&id=' . $_GET['id'] . '#commentsFrame');
             break;
         case 'admin':
             checkAdmin();
@@ -77,6 +78,7 @@ if (isset($_GET['action'])) {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 deleteCommentAction($_GET['id']);
             }
+            header('Location: index.php?action=adminListComments');
             break;
         case 'adminDeletePost':
             checkAdmin();

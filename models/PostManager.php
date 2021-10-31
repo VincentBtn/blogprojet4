@@ -7,10 +7,13 @@ class PostManager extends Manager {
 
     public const SIZE = 2;
 
-    public function list($offset = 0)
+    public function list($paginate = true, $offset = 0)
     {  
-      
-        $req = $this->db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC LIMIT '.$offset.', '.self::SIZE.'');
+        $query = 'SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC';
+        if ($paginate) {
+            $query .= ' LIMIT '.$offset.', '.self::SIZE.'';
+        }
+        $req = $this->db->query($query);
         $posts = $req->fetchAll();
         $req->closeCursor();
 

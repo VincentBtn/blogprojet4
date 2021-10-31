@@ -32,7 +32,7 @@ if (!empty($_SESSION['connected']) && $_SESSION['connected'] === true) {
 <form method="post" action="index.php?action=postComment&amp;id=<?= $post['id'] ?>">
     <div class="mb-3">
     <label for="comment" class="form-label">Votre commentaire</label>
-    <textarea class="form-control" name="comment" rows="3"></textarea>
+    <textarea class="form-control" name="comment" rows="3" required></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Commenter</button>
 </form>
