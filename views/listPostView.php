@@ -1,6 +1,8 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
+
+
 <h1 style="text-align: center;">Blog de Jean-Forteroche</h1>
 <p style="text-align: center;">Derniers billets du blog :</p>
 

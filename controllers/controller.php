@@ -67,8 +67,15 @@ function register($user)
 {
     
     $userManager = new UserManager();
+    $pseudo = strip_tags($user['pseudo']);
+    $email = strip_tags($user['email']);
     $password = password_hash($user['password'], PASSWORD_DEFAULT);
-    $userManager->create($user['pseudo'], $password, $user['email']);
+    $userManager->create($pseudo, $password, $email);
+    $_SESSION['connected'] = true;
+    $_SESSION['pseudo'] = $pseudo;
+   
+
+    header('Location: index.php');
 
 
 }
@@ -76,19 +83,20 @@ function register($user)
 function login($params)
 {
     $userManager = new UserManager();
-    $user = $userManager->getByPseudo($params['pseudo']);
+    $pseudo = strip_tags($params['pseudo']);
+    $user = $userManager->getByPseudo($pseudo);
     $error = null;
     if ($user) {
         if (password_verify($params['password'], $user['password'])) {
-            var_dump('Mot de passe valide !');
             $_SESSION['connected'] = true;
-            $_SESSION['pseudo'] = $user['pseudo'];
+            $_SESSION['pseudo'] = $pseudo;
             if ($user['role'] === UserManager::ROLE_ADMIN) {
                 $_SESSION['admin'] = true;
                 header('Location: index.php?action=admin');
 
             }
-        
+            
+            header('Location: index.php');
         
         } else {
             $error = 'Mot de passe invalide';
@@ -113,7 +121,7 @@ function logout() {
 function newPost($title, $content) {
 	
     $postManager = new PostManager();
-
+    
     $postManager->create($title, $content);
 
 	header('Location: index.php');
@@ -134,7 +142,7 @@ function updatePost($title, $content, $id) {
 function addComment($postId, $author, $comment) {
     
     $commentManager = new CommentManager();
-
+    $comment = strip_tags($comment);
     $affectedLines = $commentManager->postComment($postId, $author, $comment);
 
     if ($affectedLines === false) {
