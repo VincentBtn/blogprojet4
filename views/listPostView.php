@@ -43,11 +43,11 @@ foreach ($posts as $data)
             <em>le <?= $data['creation_date_fr'] ?></em>
         </h3>
         
-        <p class="card-text">
+        <div class="card-text">
             <?= ($data['content']) ?>
             <br />
             <em><a href="index.php?action=post&amp;id=<?= $data['id'] ?>">Commentaires</a></em>
-        </p>
+        </div>
       </div>
     </div>
 <?php
